@@ -12,7 +12,10 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.usersRepository.create(createUserDto);
+    const user = this.usersRepository.create({
+      ...createUserDto,
+      passwordChangedAt: new Date(),
+    });
     return this.usersRepository.save(user);
   }
 
@@ -46,6 +49,7 @@ export class UsersService {
         'verified',
         'createdAt',
         'password',
+        'passwordChangedAt',
         'refreshToken',
       ],
     });
@@ -63,6 +67,17 @@ export class UsersService {
 
   async updateRefreshToken(id: string, refreshToken: string): Promise<void> {
     await this.usersRepository.update(id, { refreshToken });
+  }
+
+  async updatePassword(id: string, newPassword: string): Promise<void> {
+    await this.usersRepository.update(id, {
+      password: newPassword,
+      passwordChangedAt: new Date(),
+    });
+  }
+
+  async verifyUser(id: string): Promise<void> {
+    await this.usersRepository.update(id, { verified: true });
   }
 
   async findProfile(id: string): Promise<User> {

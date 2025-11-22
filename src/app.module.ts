@@ -7,6 +7,7 @@ import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
+import emailConfig from './config/email.config';
 
 // Modules
 import { AuthModule } from './modules/auth/auth.module';
@@ -23,7 +24,7 @@ import { VideosModule } from './modules/videos/videos.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig, jwtConfig],
+      load: [databaseConfig, jwtConfig, emailConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -43,8 +44,8 @@ import { VideosModule } from './modules/videos/videos.module';
     }),
     ThrottlerModule.forRoot([
       {
-        ttl: parseInt(process.env.THROTTLE_TTL || '60', 10) * 1000,
-        limit: parseInt(process.env.THROTTLE_LIMIT || '10', 10),
+        ttl: parseInt(process.env.THROTTLE_TTL || '60', 10) * 1000, // 60 seconds
+        limit: parseInt(process.env.THROTTLE_LIMIT || '10', 10), // 10 requests
       },
     ]),
     AuthModule,

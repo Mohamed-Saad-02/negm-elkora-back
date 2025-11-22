@@ -8,10 +8,10 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { Comment } from '../../comments/entities/comment.entity';
-import { Like } from '../../likes/entities/like.entity';
-import { Report } from '../../reports/entities/report.entity';
+import { User } from '@/modules/users/entities/user.entity';
+import { Comment } from '@/modules/comments/entities/comment.entity';
+import { Like } from '@/modules/likes/entities/like.entity';
+import { Report } from '@/modules/reports/entities/report.entity';
 
 @Entity('videos')
 export class Video {
@@ -53,4 +53,3 @@ export class Video {
   @OneToMany(() => Report, (report) => report.video)
   reports: Report[];
 }
-

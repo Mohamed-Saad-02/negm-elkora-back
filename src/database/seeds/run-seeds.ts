@@ -32,6 +32,7 @@ async function seed() {
       country: 'USA',
       dateOfBirth: new Date('1995-01-15'),
       verified: true,
+      passwordChangedAt: new Date(),
     },
     {
       email: 'scout@example.com',
@@ -42,6 +43,7 @@ async function seed() {
       country: 'UK',
       dateOfBirth: new Date('1985-05-20'),
       verified: true,
+      passwordChangedAt: new Date(),
     },
     {
       email: 'user@example.com',
@@ -52,6 +54,7 @@ async function seed() {
       country: 'Canada',
       dateOfBirth: new Date('1990-08-10'),
       verified: false,
+      passwordChangedAt: new Date(),
     },
   ];
 

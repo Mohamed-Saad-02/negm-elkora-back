@@ -10,8 +10,8 @@ import { Tryout } from './entities/tryout.entity';
 import { CreateTryoutDto } from './dto/create-tryout.dto';
 import { UpdateTryoutDto } from './dto/update-tryout.dto';
 import { UsersService } from '../users/users.service';
-import { UserRole } from '../../common/enums/user-role.enum';
-import { TryoutStatus } from '../../common/enums/tryout-status.enum';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { TryoutStatus } from '@/common/enums/tryout-status.enum';
 
 @Injectable()
 export class TryoutsService {
@@ -21,7 +21,10 @@ export class TryoutsService {
     private usersService: UsersService,
   ) {}
 
-  async create(scoutId: string, createTryoutDto: CreateTryoutDto): Promise<Tryout> {
+  async create(
+    scoutId: string,
+    createTryoutDto: CreateTryoutDto,
+  ): Promise<Tryout> {
     const scout = await this.usersService.findOne(scoutId);
     if (scout.role !== UserRole.SCOUT) {
       throw new ForbiddenException('Only scouts can request tryouts');
@@ -29,7 +32,9 @@ export class TryoutsService {
 
     const player = await this.usersService.findOne(createTryoutDto.playerId);
     if (player.role !== UserRole.PLAYER) {
-      throw new BadRequestException('Tryouts can only be requested for players');
+      throw new BadRequestException(
+        'Tryouts can only be requested for players',
+      );
     }
 
     const tryout = this.tryoutsRepository.create({
@@ -91,4 +96,3 @@ export class TryoutsService {
     return tryout;
   }
 }
-

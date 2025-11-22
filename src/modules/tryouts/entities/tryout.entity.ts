@@ -7,8 +7,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { TryoutStatus } from '../../../common/enums/tryout-status.enum';
+import { User } from '@/modules/users/entities/user.entity';
+import { TryoutStatus } from '@/common/enums/tryout-status.enum';
 
 @Entity('tryouts')
 export class Tryout {
@@ -45,4 +45,3 @@ export class Tryout {
   @UpdateDateColumn()
   updatedAt: Date;
 }
-

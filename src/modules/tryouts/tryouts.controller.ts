@@ -7,15 +7,20 @@ import {
   Param,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { TryoutsService } from './tryouts.service';
 import { CreateTryoutDto } from './dto/create-tryout.dto';
 import { UpdateTryoutDto } from './dto/update-tryout.dto';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { Roles } from '../../common/decorators/roles.decorator';
-import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import { UserRole } from '../../common/enums/user-role.enum';
+import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
+import { RolesGuard } from '@/common/guards/roles.guard';
+import { Roles } from '@/common/decorators/roles.decorator';
+import { CurrentUser } from '@/common/decorators/current-user.decorator';
+import { UserRole } from '@/common/enums/user-role.enum';
 
 @ApiTags('Tryouts')
 @Controller('tryouts')
@@ -39,7 +44,10 @@ export class TryoutsController {
   @Patch(':id/status')
   @Roles(UserRole.PLAYER)
   @ApiOperation({ summary: 'Update tryout status (Player only)' })
-  @ApiResponse({ status: 200, description: 'Tryout status updated successfully' })
+  @ApiResponse({
+    status: 200,
+    description: 'Tryout status updated successfully',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Tryout not found' })
   async updateStatus(
@@ -74,4 +82,3 @@ export class TryoutsController {
     return this.tryoutsService.findOne(id);
   }
 }
-

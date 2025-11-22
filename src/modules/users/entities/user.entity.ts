@@ -6,14 +6,14 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { UserRole } from '../../../common/enums/user-role.enum';
-import { Video } from '../../videos/entities/video.entity';
-import { Comment } from '../../comments/entities/comment.entity';
-import { Like } from '../../likes/entities/like.entity';
-import { Follow } from '../../follows/entities/follow.entity';
-import { Feedback } from '../../feedback/entities/feedback.entity';
-import { Tryout } from '../../tryouts/entities/tryout.entity';
-import { Report } from '../../reports/entities/report.entity';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { Video } from '@/modules/videos/entities/video.entity';
+import { Comment } from '@/modules/comments/entities/comment.entity';
+import { Like } from '@/modules/likes/entities/like.entity';
+import { Follow } from '@/modules/follows/entities/follow.entity';
+import { Feedback } from '@/modules/feedback/entities/feedback.entity';
+import { Tryout } from '@/modules/tryouts/entities/tryout.entity';
+import { Report } from '@/modules/reports/entities/report.entity';
 
 @Entity('users')
 export class User {
@@ -35,6 +35,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  passwordChangedAt: Date;
 
   @Column({ type: 'text', nullable: true })
   bio: string;
@@ -88,4 +91,3 @@ export class User {
   @OneToMany(() => Report, (report) => report.reporter)
   reports: Report[];
 }
-

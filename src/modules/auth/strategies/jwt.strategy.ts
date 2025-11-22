@@ -23,6 +23,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
+    // Note: Access tokens are short-lived (15 minutes) and revocation is primarily
+    // handled through refresh token revocation. When a refresh token is revoked,
+    // new access tokens cannot be issued. For immediate access token revocation,
+    // consider implementing a token blacklist in Redis or a similar cache.
     const user = await this.usersService.findOne(payload.sub);
     if (!user) {
       throw new UnauthorizedException();
